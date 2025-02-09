@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 80%;
+            padding: 8px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-button:hover {
+            background: #218838;
+        }
+        .message-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            font-weight: bold;
+            display: none; /* Initially hidden */
+        }
+        .message-container img {
+            width: 300px;
+            height: 300px;
+            margin-left: 5px;
+        }
+        .error-message {
+            color: red;
+        }
+        .success-message {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div> 
+        <img src="image-1.png" alt="">
+    </div> 
+    <div class="login-container">
+        <h2>Helloooo Mi Lord Welcome !!!</h2>
+        <form id="login-form">
+            <input type="text" id="username" class="input-field">
+            <div id="message-container" class="message-container">
+                <span id="message-text"></span>
+                <img id="message-icon" src="" alt="">
+            </div>
+            <h3>Do you wanna play a game</h3>
+            <button type="submit" class="login-button">Yesss</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            let usernameInput = document.getElementById("username");
+            let messageContainer = document.getElementById("message-container");
+            let messageText = document.getElementById("message-text");
+            let messageIcon = document.getElementById("message-icon");
+
+            let inputValue = usernameInput.value.trim();
+            
+            if (inputValue === "") {
+                event.preventDefault(); // Prevent form submission
+                messageText.textContent = "psssss!!! Say 'Hi' to the lady ....Where are your manners bubu";
+                messageText.className = "error-message";
+                messageIcon.src = "img2-removebg.png"; // Change this to your warning icon
+                messageContainer.style.display = "flex"; // Show the message
+                usernameInput.style.border = "2px solid red"; // Highlight input field
+            } else if (inputValue.toLowerCase().includes("hi")) {
+                event.preventDefault(); // Prevent form submission
+                messageText.textContent = "hmm goood";
+                messageText.className = "success-message";
+                messageIcon.src = "img3.png"; // Change this to your thumbs-up icon
+                messageContainer.style.display = "flex"; // Show the message
+                usernameInput.style.border = "2px solid green"; // Highlight input field in green
+
+                // Redirect after 2 seconds
+                setTimeout(() => {
+                    window.location.href = "jenji_2.html";
+                }, 2000);
+            } else {
+                event.preventDefault(); // Prevent form submission
+                messageContainer.style.display = "none"; // Hide the message if input is invalid
+                usernameInput.style.border = "1px solid #ccc"; // Reset border
+            }
+        });
+    </script>
+</body>
+</html>

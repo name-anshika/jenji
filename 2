@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            overflow: hidden;
+        }
+        .question {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .btn-hug {
+            background-color: #ff69b4;
+            color: white;
+        }
+        .btn-choco {
+            background-color: #d2691e;
+            color: white;
+        }
+        .btn-kiss {
+            background-color: #ff4500;
+            color: white;
+        }
+
+        .speech-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: hoverEffect 1s infinite alternate;
+        }
+
+        @keyframes hoverEffect {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-5px); }
+        }
+
+        .speech-bubble {
+            position: relative;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            max-width: 250px;
+            text-align: center;
+        }
+
+        .speech-bubble::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid white;
+        }
+
+        .character-image {
+            width: 80px;
+            height: auto;
+        }
+
+        .wrong-answer {
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .gift-container {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        #openGiftButton {
+            display: none;
+            padding: 10px 20px;
+            background-color: #ff69b4;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #imageContainer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+        }
+
+        #imageContainer img {
+            width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="question">What day is it today???</div>
+
+    <div id="speech-container" class="speech-container" style="display: none;">
+        <img id="character-img" src="img4.png" class="character-image" alt="Talking Cartoon">
+        <div class="speech-bubble" id="speech-text">Heyy don't Google it</div>
+    </div>
+
+    <div class="buttons">
+        <button class="btn btn-hug" onclick="checkAnswer('hug')">Hug Day</button>
+        <button class="btn btn-choco" onclick="checkAnswer('choco')">Chocolate Day</button>
+        <button class="btn btn-kiss" onclick="checkAnswer('kiss')">Kiss Day</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            setTimeout(() => {
+                document.getElementById("speech-container").style.display = "flex";
+            }, 6000);
+        });
+
+        function checkAnswer(choice) {
+            if (choice === 'choco') {
+                setTimeout(() => {
+                    document.body.innerHTML = `
+                        <div class="gift-container" id="gift-container">
+                            <img src="gift.png" alt="Gift" style="width:200px;height:auto;">
+                            <p>I have a gift for you</p>
+                            <button id="openGiftButton" onclick="openGift()">Open Gift</button>
+                        </div>`;
+
+                    let giftContainer = document.getElementById("gift-container");
+                    let moveTime = Date.now() + 10000;
+
+                    giftContainer.addEventListener("mouseover", () => {
+                        if (Date.now() < moveTime) {
+                            let maxX = window.innerWidth * 0.6;
+                            let maxY = window.innerHeight * 0.6;
+                            let x = Math.random() * maxX - maxX / 2;
+                            let y = Math.random() * maxY - maxY / 2;
+                            giftContainer.style.transform = `translate(${x}px, ${y}px)`;
+                        }
+                    });
+
+                    setTimeout(() => {
+                        document.getElementById("openGiftButton").style.display = "inline-block";
+                    }, 10000);
+                }, 2000);
+            } else {
+                document.getElementById("speech-text").textContent = "HWWW!! You don't know the day today even after having a girlfriend";
+                document.getElementById("speech-text").classList.add("wrong-answer");
+                document.getElementById("character-img").src = "img5.png";
+                document.getElementById("speech-container").style.display = "flex";
+            }
+        }
+
+        function openGift() {
+    // Redirect to another page (replace 'newPage.html' with the desired URL)
+    window.location.href = "newPage.html";
+}
+    </script>
+
+</body>
+</html>
